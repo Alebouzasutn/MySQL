@@ -1,0 +1,37 @@
+/*TRIGGER*/
+-- Crea una tabla de historial para usar en el ejemplo
+CREATE TABLE libros_history (
+titulo_id INT NOT NULL AUTO_INCREMENT,
+cantidad INT NOT NULL,
+ titulo VARCHAR(100) NULL,
+PRIMARY KEY (titulo)
+)
+;
+
+SELECT*FROM LIBROS;
+INSERT INTO libros(titulo, titulo_id) VALUES ("SQL FUNDAMENTALS", 1);
+
+-- Crea un trigger llamado "tg_email" que guarda el email previo en la tabla "email_history" siempre
+-- que se actualiza el campo "email" en la tabla "users"
+
+-- DELIMITER es una directiva que sirve para cambiar el delimitador de instrucciones SQL, que por defecto es ;
+-- Se utiliza cuando se define un bloque de código como un procedimiento donde se requieren múltiples 
+-- instrucciones SQL terminadas con punto y coma dentro de un mismo bloque.
+DELIMITER //
+CREATE TRIGGER tg_titulo
+AFTER UPDATE ON libros
+FOR EACH ROW
+BEGIN
+	IF OLD.titulo <> NEW.titulo THEN
+		INSERT INTO libros_history (titulo_id, titulo)
+		VALUES (OLD.titulo_id, OLD.titulo);
+	END IF;
+END//
+
+ALTER TABLE libros
+ADD titulo_id INT NOT NULL;
+
+UPDATE libros SET titulo='SQL AVANZADO' WHERE titulo__id=1;
+
+ALTER TABLE libros
+MODIFY COLUMN titulo_id INT NOT NULL AUTO_INCREMENT;
