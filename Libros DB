@@ -1,0 +1,97 @@
+
+select@@SQL_SAFE_UPDATES; 
+set @@sql_safe_updates =1;
+select @@sql_safe_updates;
+set @@sql_safe_updates =0;
+
+
+select distinct autor from libros;
+select distinct titulo from libros;
+
+select titulo from libros
+group by titulo;
+insert into libros (titulo, autor, editorial, precio, cantidad) values ('Arquitectura de computadoras','','Planeta',50,5);
+select distinct autor from libros
+where autor is not null;
+select distinct autor from libros
+where editorial='Planeta';
+select editorial,count(distinct autor)
+from libros
+group by editorial;
+
+alter table libros
+drop codigo;
+alter table libros
+add codigo int not null;
+alter table libros
+add primary key (codigo);
+alter table libros
+drop codigo;
+alter table libros
+add codigo int not null ;
+
+select * from libros;
+alter table libros
+add primary key (codigo);
+alter table libros
+drop codigo;
+alter table libros
+add codigo int not null auto_increment primary key;
+
+select*from libros;
+
+select * from libros where not editorial = 'planeta' and autor = 'Jorge Luis Borges';
+select * from libros where not editorial ='planeta' or autor = 'Jorge Luis Borges';
+select distinct * from libros where autor = 'Jorge Luis Borges';
+-- Puedo usar % antes o despues de nombre campo para indicar que tenga algo antes o dps de ese --
+
+
+describe libros;
+
+SELECT*,
+CASE
+WHEN PRECIO >15 THEN 'PEDIR EDITORIAL'
+ELSE 'NO PEDIR'
+END AS 'A PEDIR'
+FROM LIBROS;
+
+select clave from usuarios;
+
+select * from agenda;
+
+select * from usuarios;
+
+describe agenda;
+
+select * from libros;
+
+
+insert into libros(titulo, autor, editorial, precio, cantidad) values('El Aleph', 'Jorge Luis Borges', 'Emecea',45.50,100);
+insert into libros(titulo, autor, editorial, precio, cantidad) values('Alicia en el pais de las maravillas','Lewis Caroll','Planeta',25,200);
+insert into libros(titulo, autor, editorial, precio, cantidad) values('Matematica estas ahi','Paenza','Planeta',15.8,20);
+
+select titulo, precio from libros;
+select * from libros;
+
+select* from usuarios;
+update usuarios set clave='boca' where nombre='MarioPerez';
+
+insert into usuarios (nombre, clave) values ('Leonardo', 'payaso');
+insert into usuarios (nombre, clave) values ('MarioPerez', 'marito');
+insert into usuarios (nombre, clave) values ('Marcelo', 'River');
+insert into usuarios (nombre, clave) values ('Gustavo', 'River');
+
+select * from usuarios;
+
+update usuarios set clave='ale';
+
+select*from usuarios;
+
+update usuarios set clave='river' where nombre='Gustavo';
+
+select*from usuarios;
+
+agendadelete from usuarios where nombre='Leonardo';
+
+select*from usuarios;
+
